@@ -1,10 +1,11 @@
 "use client";
 
 import React from 'react';
+import type { EChartsOption, GaugeSeriesOption } from 'echarts';
 import EChart from '@/components/echarts/EChart';
 
 export default function TiTvGauge({ value }: { value: number }) {
-  const option = {
+  const option: EChartsOption = {
     series: [
       {
         type: 'gauge',
@@ -24,8 +25,8 @@ export default function TiTvGauge({ value }: { value: number }) {
         pointer: { width: 4 },
         detail: { formatter: (v: number) => v.toFixed(2), fontSize: 16 },
         data: [{ value }],
-      },
+      } as GaugeSeriesOption,
     ],
-  } as const;
-  return <EChart option={option as any} />;
+  };
+  return <EChart option={option} />;
 }

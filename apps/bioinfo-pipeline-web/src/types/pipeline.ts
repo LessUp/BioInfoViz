@@ -4,7 +4,7 @@ export interface Sample {
   id: string;
   name: string;
   group?: string;
-  meta?: Record<string, any>;
+  meta?: Record<string, unknown>;
 }
 
 export interface Metric {
@@ -13,6 +13,34 @@ export interface Metric {
   value: number | string;
   unit?: string;
   tags?: string[];
+}
+
+export type ResourceKind = 'doc' | 'app' | 'external';
+
+export interface ResourceLink {
+  title: string;
+  description: string;
+  href: string;
+  kind: ResourceKind;
+}
+
+export interface PipelineProfile {
+  name: string;
+  summary: string;
+  category: 'germline' | 'transcriptomics' | 'single-cell' | 'metagenomics' | 'other';
+  difficulty: 'beginner' | 'intermediate' | 'advanced';
+  recommendedAudiences: string[];
+  keyConcepts: string[];
+}
+
+export interface PipelinePreview {
+  id: string;
+  name: string;
+  summary: string;
+  highlights: string[];
+  difficulty: PipelineProfile['difficulty'];
+  category: PipelineProfile['category'];
+  keyConcepts: string[];
 }
 
 export interface Artifact {
@@ -49,4 +77,8 @@ export interface Pipeline {
   samples: Sample[];
   status: RunStatus;
   stages: Stage[];
+  profile: PipelineProfile;
+  summary: string;
+  highlights: string[];
+  resources: ResourceLink[];
 }

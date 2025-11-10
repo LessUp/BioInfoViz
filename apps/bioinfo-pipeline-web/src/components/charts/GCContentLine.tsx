@@ -1,12 +1,13 @@
 "use client";
 
 import React from 'react';
+import type { EChartsOption, LineSeriesOption } from 'echarts';
 import EChart from '@/components/echarts/EChart';
 import { seededArray } from '@/lib/seed';
 
 export default function GCContentLine({ seed = 'gc', series = 2 }: { seed?: string; series?: number }) {
   const x = Array.from({ length: 101 }, (_, i) => i);
-  const options = {
+  const options: EChartsOption = {
     tooltip: { trigger: 'axis' },
     legend: { top: 0 },
     grid: { left: 30, right: 10, top: 30, bottom: 30 },
@@ -25,9 +26,9 @@ export default function GCContentLine({ seed = 'gc', series = 2 }: { seed?: stri
         data: arr,
         smooth: true,
         areaStyle: { opacity: 0.08 },
-      };
+      } as LineSeriesOption;
     }),
-  } as const;
+  };
 
-  return <EChart option={options as any} />;
+  return <EChart option={options} />;
 }

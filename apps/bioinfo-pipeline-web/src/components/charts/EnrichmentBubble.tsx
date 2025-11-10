@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import type { EChartsOption, ScatterSeriesOption } from 'echarts';
 import EChart from '@/components/echarts/EChart';
 import { seededArray } from '@/lib/seed';
 
@@ -12,12 +13,20 @@ export default function EnrichmentBubble({ seed = 'enrich', n = 12 }: { seed?: s
 
   const data = names.map((name, i) => [score[i], genes[i], fdr[i], name]);
 
-  const option = {
+  const option: EChartsOption = {
     tooltip: {
       trigger: 'item',
-      formatter(params: any) {
-        const [s, g, q, name] = params.data as [number, number, number, string];
-        return `${name}<br/>Score: ${s.toFixed(2)}<br/>Genes: ${g.toFixed(0)}<br/>FDR: ${q.toExponential(2)}`;
+      formatter(params) {
+        const param = Array.isArray(params) ? params[0] : params;
+        if (param && typeof param === 'object' && 'dataIndex' in param) {
+          const index = Number((param as { dataIndex: number }).dataIndex);
+          const point = data[index];
+          if (Array.isArray(point)) {
+            const [s, g, q, name] = point as [number, number, number, string];
+            return `${name}<br/>Score: ${s.toFixed(2)}<br/>Genes: ${g.toFixed(0)}<br/>FDR: ${q.toExponential(2)}`;
+          }
+        }
+        return '';
       },
     },
     grid: { left: 40, right: 20, top: 20, bottom: 40 },
@@ -26,7 +35,7 @@ export default function EnrichmentBubble({ seed = 'enrich', n = 12 }: { seed?: s
     series: [
       {
         type: 'scatter',
-        symbolSize: (val: any) => Math.max(8, Math.min(40, (1 - val[2]) * 40)),
+        symbolSize: (val) => Math.max(8, Math.min(40, (1 - Number(val[2])) * 40)),
         data,
         itemStyle: {
           color: '#22c55e',
@@ -34,9 +43,9 @@ export default function EnrichmentBubble({ seed = 'enrich', n = 12 }: { seed?: s
         emphasis: {
           focus: 'series',
         },
-      },
+      } as ScatterSeriesOption,
     ],
-  } as const;
+  };
 
-  return <EChart option={option as any} />;
+  return <EChart option={option} />;
 }
