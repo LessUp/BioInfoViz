@@ -44,12 +44,26 @@
       </div>
     </section>
     <section class="viz-panel">
+      <div class="row" style="margin-bottom:8px; gap:12px; align-items:flex-start;">
+        <div class="card" style="flex:1; padding:8px;">
+          <div style="color:#9fb2c8; font-size:12px; margin-bottom:6px;">输入</div>
+          <div id="inputPanel" class="log"></div>
+        </div>
+        <div class="card" style="flex:1; padding:8px;">
+          <div style="color:#9fb2c8; font-size:12px; margin-bottom:6px;">输出对齐</div>
+          <div id="outputPanel" class="log"></div>
+        </div>
+      </div>
       <canvas id="dpCanvas" width="900" height="520"></canvas>
     </section>
   </main>
   <footer class="app-footer">
     <div>说明：该演示展示 DP 矩阵的填充与回溯过程，动态高亮更新单元与路径。</div>
   </footer>
+  <script type="module">
+    import * as DPCore from './core.js';
+    window.DPCore = DPCore;
+  </script>
   <script defer src="./app.js"></script>
 </body>
 </html>
