@@ -15,6 +15,9 @@
     "dev:align": "npm run -w genome-align-viz dev",
     "dev:bioinfo": "npm run -w bioinfo-pipeline-web dev",
     "format": "npx prettier . -w",
-    "format:check": "npx prettier . -c"
+    "format:check": "npx prettier . -c",
+    "lint:all": "npm run -w bioinfo-pipeline-web lint",
+    "test:all": "npm run -w bioinfo-pipeline-web test && npm run -w gatk-run-dashboard test && npm run -w genome-align-viz test",
+    "ci": "npm run format:check && npm run lint:all && npm run test:all"
   }
 }

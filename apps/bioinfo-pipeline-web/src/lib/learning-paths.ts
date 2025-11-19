@@ -1,4 +1,5 @@
 import type { ResourceLink } from '@/types/pipeline';
+import { ROUTES } from '@/lib/routes';
 
 export interface LearningStep {
   id: string;
@@ -20,28 +21,28 @@ export interface LearningPath {
 const docsResource: ResourceLink = {
   title: 'NGS 流程入门讲义',
   description: '复习测序流程与数据格式，建立知识背景。',
-  href: '/docs/ngs-analysis-guide',
+  href: ROUTES.docs.ngsAnalysisGuide,
   kind: 'doc',
 };
 
 const bwaResource: ResourceLink = {
   title: 'BWA 算法交互演示',
   description: '通过动画掌握种子比对与评分矩阵。',
-  href: '/apps/bwa-algorithm-viz',
+  href: ROUTES.apps.bwaAlgorithmViz,
   kind: 'app',
 };
 
 const gatkResource: ResourceLink = {
   title: 'GATK 运行监控',
   description: '观察流程监控指标与日志。',
-  href: '/apps/gatk-run-dashboard',
+  href: ROUTES.apps.gatkRunDashboard,
   kind: 'app',
 };
 
 const slidesResource: ResourceLink = {
   title: 'NGS vs TGS 幻灯片',
   description: '课堂可直接引用的比较幻灯片。',
-  href: '/slides/ngs-vs-tgs',
+  href: ROUTES.slides.ngsVsTgs,
   kind: 'doc',
 };
 
@@ -63,13 +64,13 @@ export const learningPaths: LearningPath[] = [
         id: 'picard',
         title: '体验 Picard 可视化',
         description: '在 Picard Workflow SPA 中逐步浏览去重、重校正等操作。',
-        target: '/apps/picard-workflow-spa',
+        target: ROUTES.apps.picardWorkflowSpa,
       },
       {
         id: 'pipeline-demo',
         title: '跟随 WES 全流程演示',
         description: '通过本应用的 “外显子组变异检测” 模块掌握运行状态与报告。',
-        target: '/pipelines/wes-germline',
+        target: ROUTES.pipelines.wesGermline,
         resources: [bwaResource],
       },
     ],
@@ -85,14 +86,14 @@ export const learningPaths: LearningPath[] = [
         id: 'rna-seq',
         title: 'Bulk RNA-Seq 流程',
         description: '在 “差异表达” 模块中查看定量与差异分析阶段的指标。',
-        target: '/pipelines/bulk-rna-seq',
+        target: ROUTES.pipelines.bulkRnaSeq,
         resources: [gatkResource],
       },
       {
         id: 'gene-enrich',
         title: '探索富集分析',
         description: '结合 GATK dashboard 或外部工具，解释 GO/KEGG 通路结果。',
-        target: '/apps/gatk-run-dashboard',
+        target: ROUTES.apps.gatkRunDashboard,
       },
       {
         id: 'slides',
@@ -113,13 +114,13 @@ export const learningPaths: LearningPath[] = [
         id: 'api-contract',
         title: '熟悉 Mock API 与数据结构',
         description: '阅读项目源码中的 pipeline-presets、了解数据契约。',
-        target: 'https://github.com/your-org/bioinfo-visualizer',
+        target: ROUTES.external.repo,
       },
       {
         id: 'monitor',
         title: 'GATK 运行监控',
         description: '查看实时指标与日志，思考接入 Prometheus/Grafana 的方式。',
-        target: '/apps/gatk-run-dashboard',
+        target: ROUTES.apps.gatkRunDashboard,
       },
       {
         id: 'component-system',

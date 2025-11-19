@@ -1,4 +1,5 @@
 import type { Metric, Pipeline, PipelineProfile, ResourceLink, RunStatus, Sample, Stage } from '@/types/pipeline';
+import { ROUTES } from '@/lib/routes';
 
 interface StageTemplate extends Omit<Stage, 'startedAt' | 'finishedAt'> {
   /** seconds ago */
@@ -33,13 +34,13 @@ const wesResources: ResourceLink[] = [
   {
     title: 'NGS 流程入门讲义',
     description: '循序渐进回顾 DNA 测序、读长比对与变异检测的关键概念。',
-    href: '/docs/ngs-analysis-guide',
+    href: ROUTES.docs.ngsAnalysisGuide,
     kind: 'doc',
   },
   {
     title: 'BWA 算法交互演示',
     description: '结合动画理解种子扩展、评分矩阵与比对策略。',
-    href: '/apps/bwa-algorithm-viz',
+    href: ROUTES.apps.bwaAlgorithmViz,
     kind: 'app',
   },
 ];
@@ -48,13 +49,13 @@ const rnaResources: ResourceLink[] = [
   {
     title: '差异表达分析流程概览',
     description: '总结 RNA-Seq 数据预处理、定量与统计检验的要点。',
-    href: 'https://rnaseq101.example.com',
+    href: ROUTES.external.rnaSeqGuide,
     kind: 'external',
   },
   {
     title: '基因表达富集演示',
     description: '探索 GO/KEGG 通路与富集气泡图的解读技巧。',
-    href: '/apps/gatk-run-dashboard',
+    href: ROUTES.apps.gatkRunDashboard,
     kind: 'app',
   },
 ];
@@ -63,13 +64,13 @@ const scResources: ResourceLink[] = [
   {
     title: '单细胞分析互动课程',
     description: '涵盖过滤、归一化、聚类与细胞类型注释。',
-    href: 'https://singlecellhub.example.com',
+    href: ROUTES.external.singleCellHub,
     kind: 'external',
   },
   {
     title: 'UMAP/TSNE 可视化练习',
     description: '体验降维可视化的参数调整与标注。',
-    href: '/apps/genome-align-viz',
+    href: ROUTES.apps.genomeAlignViz,
     kind: 'app',
   },
 ];

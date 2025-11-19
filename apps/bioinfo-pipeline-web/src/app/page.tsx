@@ -4,25 +4,26 @@ import Badge from '@/components/ui/Badge';
 import LearningPathPlanner from '@/components/learning/LearningPathPlanner';
 import ResourceCard from '@/components/pipeline/ResourceCard';
 import { listPipelinePreviews } from '@/lib/pipeline-presets';
+import { ROUTES } from '@/lib/routes';
 import type { ResourceLink } from '@/types/pipeline';
 
 const knowledgeBase: ResourceLink[] = [
   {
     title: 'NGS 流程入门讲义',
     description: '课堂讲义与术语速查，快速回顾测序分析步骤。',
-    href: '/docs/ngs-analysis-guide',
+    href: ROUTES.docs.ngsAnalysisGuide,
     kind: 'doc',
   },
   {
     title: 'NGS vs TGS 幻灯片',
     description: '教学演示可直接打开的对比幻灯片。',
-    href: '/slides/ngs-vs-tgs',
+    href: ROUTES.slides.ngsVsTgs,
     kind: 'doc',
   },
   {
     title: 'Mock API 数据结构',
     description: '了解 pipeline-presets 如何生成演示数据，方便二次开发。',
-    href: 'https://github.com/your-org/bioinfo-visualizer',
+    href: ROUTES.external.repo,
     kind: 'external',
   },
 ];
@@ -45,31 +46,31 @@ const labTools = [
   {
     name: 'Picard Workflow SPA',
     description: '逐步演练去重、重校正等核心步骤。',
-    href: '/apps/picard-workflow-spa',
+    href: ROUTES.apps.picardWorkflowSpa,
     tag: 'DNA 流程',
   },
   {
     name: 'BWA 算法动画',
     description: '通过动画理解比对算法细节。',
-    href: '/apps/bwa-algorithm-viz',
+    href: ROUTES.apps.bwaAlgorithmViz,
     tag: '算法原理',
   },
   {
     name: 'SW/NW 序列比对演示',
     description: '动态规划矩阵填充与回溯路径动画。',
-    href: '/apps/smith-waterman-viz',
+    href: ROUTES.apps.smithWatermanViz,
     tag: '算法原理',
   },
   {
     name: 'de Bruijn 图演示',
     description: 'k-mer 分解、图构建与 Euler 路动画。',
-    href: '/apps/debruijn-viz',
+    href: ROUTES.apps.debruijnViz,
     tag: '组装原理',
   },
   {
     name: 'GATK 运行监控',
     description: '查看实时日志、指标与异常告警示例。',
-    href: '/apps/gatk-run-dashboard',
+    href: ROUTES.apps.gatkRunDashboard,
     tag: '运行监控',
   },
 ];
@@ -94,13 +95,13 @@ export default function Home() {
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
                 className="rounded-full bg-blue-600 px-5 py-2 text-sm font-semibold text-white shadow hover:bg-blue-700"
-                href="/pipelines/wes-germline"
+                href={ROUTES.pipelines.wesGermline}
               >
                 进入外显子流程演示
               </Link>
               <Link
                 className="rounded-full border border-blue-500 px-5 py-2 text-sm font-semibold text-blue-600 hover:bg-blue-50 dark:text-blue-300 dark:hover:bg-blue-500/20"
-                href="/pipelines/bulk-rna-seq"
+                href={ROUTES.pipelines.bulkRnaSeq}
               >
                 查看 RNA-Seq 模块
               </Link>
