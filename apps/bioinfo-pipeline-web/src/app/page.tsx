@@ -141,6 +141,9 @@ export default function Home() {
                 微观世界与宏大流程
               </span>
             </h1>
+            <p className="mt-4 text-base font-medium text-blue-700 dark:text-blue-300">
+              构建生物信息课程的互动演示与学习路径
+            </p>
             <p className="mt-8 text-lg leading-relaxed text-zinc-600 dark:text-zinc-300">
               我们提供一站式的可视化教学与演示平台。从 BWA 比对算法的微观细节，到全基因组分析的宏大流程，通过交互式动画与实时仪表盘，让复杂的生物信息学变得触手可及。
             </p>
@@ -202,7 +205,7 @@ export default function Home() {
             <div className="max-w-2xl">
               <h2 className="flex items-center gap-3 text-3xl font-bold text-zinc-900 dark:text-zinc-100">
                 <FlaskConical className="h-8 w-8 text-blue-500" />
-                可视化流程演示
+                可视化流程目录
               </h2>
               <p className="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
                 精选不同组学场景的经典流程，支持实时状态监控、关键指标查看与结果报告预览。
@@ -261,13 +264,24 @@ export default function Home() {
                       ))}
                     </div>
                   </div>
-                  <Link
-                    href={`/pipelines/${pipeline.id}`}
-                    className="mt-8 flex w-full items-center justify-center gap-2 rounded-lg bg-zinc-50 px-4 py-2.5 text-sm font-semibold text-zinc-900 transition-colors hover:bg-blue-600 hover:text-white dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-blue-600"
-                  >
-                    进入演示
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
+                  {(() => {
+                    const linkText =
+                      pipeline.id === 'wes-germline'
+                        ? '进入外显子流程演示'
+                        : pipeline.id === 'bulk-rna-seq'
+                          ? '查看 RNA-Seq 模块'
+                          : '进入演示';
+                    return (
+                      <Link
+                        href={`/pipelines/${pipeline.id}`}
+                        aria-label={linkText}
+                        className="mt-8 flex w-full items-center justify-center gap-2 rounded-lg bg-zinc-50 px-4 py-2.5 text-sm font-semibold text-zinc-900 transition-colors hover:bg-blue-600 hover:text-white dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-blue-600"
+                      >
+                        {linkText}
+                        <ArrowRight className="h-4 w-4" />
+                      </Link>
+                    );
+                  })()}
                 </Card>
               );
             })}

@@ -27,7 +27,10 @@ export default function StageSection({ pipeline, stage }: { pipeline: Pipeline; 
   return (
     <section id={`stage-${stage.id}`} className="scroll-mt-20 rounded-lg border bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
       <div className="flex items-center justify-between">
-        <div className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">{stage.order + 1}. {stage.name}</div>
+        <div className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
+          <span className="text-zinc-400 dark:text-zinc-500">{stage.order + 1}.</span>{' '}
+          <span>{stage.name}</span>
+        </div>
         <StatusPill status={stage.status} />
       </div>
       
