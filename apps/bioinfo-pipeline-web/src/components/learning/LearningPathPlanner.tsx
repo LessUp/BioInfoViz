@@ -11,11 +11,9 @@ import { cn } from '@/lib/utils';
 export default function LearningPathPlanner() {
   const [selectedPathId, setSelectedPathId] = useState(learningPaths[0]?.id ?? 'beginner');
   const [completedSteps, setCompletedSteps] = useState<Record<string, boolean>>({});
-  const [mounted, setMounted] = useState(false);
-
   useEffect(() => {
-    setMounted(true);
-    const saved = localStorage.getItem('bioinfo-learning-progress');
+    if (typeof window === 'undefined') return;
+    const saved = window.localStorage.getItem('bioinfo-learning-progress');
     if (saved) {
       try {
         setCompletedSteps(JSON.parse(saved));
@@ -26,17 +24,15 @@ export default function LearningPathPlanner() {
   }, []);
 
   useEffect(() => {
-    if (mounted) {
-      localStorage.setItem('bioinfo-learning-progress', JSON.stringify(completedSteps));
-    }
-  }, [completedSteps, mounted]);
+    if (typeof window === 'undefined') return;
+    window.localStorage.setItem('bioinfo-learning-progress', JSON.stringify(completedSteps));
+  }, [completedSteps]);
 
   const selectedPath = useMemo(
     () => learningPaths.find((path) => path.id === selectedPathId) ?? learningPaths[0],
     [selectedPathId],
   );
 
-  if (!mounted) return <div className="h-96 w-full animate-pulse rounded-xl bg-zinc-100 dark:bg-zinc-900" />;
   if (!selectedPath) return null;
 
   const steps = selectedPath.steps;
@@ -50,15 +46,14 @@ export default function LearningPathPlanner() {
   };
 
   const resetProgress = () => {
-    if (confirm('确定要重置当前学习路径的进度吗？')) {
-       setCompletedSteps((prev) => {
-          const next = { ...prev };
-          selectedPath.steps.forEach((step) => {
-            delete next[step.id];
-          });
-          return next;
-        });
-    }
+    if (typeof window !== 'undefined' && !window.confirm('确定要重置当前学习路径的进度吗？')) return;
+    setCompletedSteps((prev) => {
+      const next = { ...prev };
+      selectedPath.steps.forEach((step) => {
+        delete next[step.id];
+      });
+      return next;
+    });
   };
 
   return (
@@ -97,7 +92,7 @@ export default function LearningPathPlanner() {
         <div className="flex flex-col gap-6 border-b border-zinc-100 pb-6 lg:flex-row lg:items-start lg:justify-between dark:border-zinc-800">
           <div className="space-y-4 max-w-2xl">
             <div>
-              <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">{selectedPath.label}</h3>
+              <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">{selectedPath.label}（当前路径）</h3>
               <p className="mt-2 text-base text-zinc-600 dark:text-zinc-400 leading-relaxed">
                 {selectedPath.summary}
               </p>
@@ -124,18 +119,20 @@ export default function LearningPathPlanner() {
                 transition={{ duration: 0.5, ease: "easeOut" }}
               />
             </div>
-             <div className="flex items-center justify-between text-xs text-zinc-500">
-                <span>{completedCount}/{totalSteps} 任务完成</span>
-                {completedCount > 0 && (
-                   <button
-                    onClick={resetProgress}
-                    className="flex items-center gap-1 text-zinc-400 hover:text-red-500 transition-colors"
-                  >
-                    <RotateCcw className="h-3 w-3" />
-                    重置
-                  </button>
-                )}
-             </div>
+            <div className="flex items-center justify-between text-xs text-zinc-500">
+              <span>
+                已完成步骤：{completedCount}/{totalSteps}
+              </span>
+              {completedCount > 0 && (
+                <button
+                  onClick={resetProgress}
+                  className="flex items-center gap-1 text-zinc-400 hover:text-red-500 transition-colors"
+                >
+                  <RotateCcw className="h-3 w-3" />
+                  重置
+                </button>
+              )}
+            </div>
           </div>
         </div>
 
@@ -162,6 +159,11 @@ export default function LearningPathPlanner() {
 
           {steps.map((step, index) => {
             const isDone = !!completedSteps[step.id];
+            const toggleLabel = isDone
+              ? '取消完成标记'
+              : index === 0
+                ? '标记为已完成'
+                : `标记为已完成：${step.title}`;
             return (
               <motion.div
                 key={step.id}
@@ -179,6 +181,8 @@ export default function LearningPathPlanner() {
                 <div className="flex gap-4">
                   <button
                     onClick={() => toggleStep(step.id)}
+                    aria-pressed={isDone}
+                    aria-label={toggleLabel}
                     className={cn(
                       "flex h-8 w-8 flex-none items-center justify-center rounded-full border transition-all",
                       isDone
@@ -187,14 +191,16 @@ export default function LearningPathPlanner() {
                     )}
                   >
                     <CheckCircle2 className="h-5 w-5" />
+                    <span className="sr-only">{toggleLabel}</span>
                   </button>
-                  
+
                   <div className="flex-1 pt-1">
                     <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
                        <div>
                           <h4 className={cn("font-semibold text-zinc-900 dark:text-zinc-100", isDone && "text-zinc-500 line-through dark:text-zinc-500")}>
                             {step.title}
                           </h4>
+                          {isDone && <Badge tone="accent" className="mt-1 inline-flex">已完成</Badge>}
                           <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
                             {step.description}
                           </p>

@@ -24,13 +24,35 @@ export interface RealBackendOptions {
 export class RealBackendDataSource implements PipelineDataSource {
   constructor(private options: RealBackendOptions) {}
 
-  async getPipeline(_id: string): Promise<Pipeline | null> {
-    throw new Error('RealBackendDataSource is not implemented yet');
+  private buildUrl(id: string) {
+    const trimmed = this.options.baseUrl.replace(/\/$/, '');
+    return `${trimmed}/pipelines/${encodeURIComponent(id)}`;
+  }
+
+  async getPipeline(id: string): Promise<Pipeline | null> {
+    const url = this.buildUrl(id);
+    const headers: Record<string, string> = { Accept: 'application/json' };
+    if (this.options.authToken) {
+      headers.Authorization = `Bearer ${this.options.authToken}`;
+    }
+
+    const res = await fetch(url, { headers, cache: 'no-store' });
+    if (res.status === 404) return null;
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(`Backend request failed ${res.status}: ${text || res.statusText}`);
+    }
+
+    return (await res.json()) as Pipeline;
   }
 }
 
 export function getPipelineDataSource(): PipelineDataSource {
-  // 暂时只返回 Mock 数据源，未来可根据环境变量切换到真实后端
+  const baseUrl = process.env.PIPELINE_API_BASE_URL ?? process.env.NEXT_PUBLIC_PIPELINE_API_BASE_URL;
+  if (baseUrl) {
+    return new RealBackendDataSource({ baseUrl, authToken: process.env.PIPELINE_API_TOKEN });
+  }
+
   return new MockPipelineDataSource();
 }
 
