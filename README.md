@@ -12,7 +12,8 @@
 │  ├─ bwa-algorithm-viz/         # BWA 算法教学可视化（静态站点）
 │  ├─ gatk-run-dashboard/        # GATK/Cromwell 运行监控仪表板（Vite+React）
 │  ├─ genome-align-viz/          # 基因比对动态可视化（Vite+React）
-│  └─ arith-compress-viz/        # 算术编码演示（静态站点）
+│  ├─ arith-compress-viz/        # 算术编码演示（静态站点）
+│  └─ smith-waterman-viz/        # Smith-Waterman/NW 比对算法演示（静态站点）
 ├─ docs/
 │  └─ ngs-analysis-guide.md      # NGS 分析指南（迁移自 NGS-gene/docs）
 ├─ slides/
@@ -29,6 +30,7 @@
   - `apps/picard-workflow-spa`
   - `apps/bwa-algorithm-viz`
   - `apps/arith-compress-viz`
+  - `apps/smith-waterman-viz`
   - `slides/ngs-vs-tgs`
   - 可选：本地静态服务 `npx serve .` 或 `python -m http.server 8000`
 
@@ -56,6 +58,7 @@
 - `npm run dev:picard` → apps/picard-workflow-spa（静态，端口 5170）
 - `npm run dev:bwa` → apps/bwa-algorithm-viz（静态，端口 5171）
 - `npm run dev:arith` → apps/arith-compress-viz（静态，端口 5172）
+- `npm run dev:sw` → apps/smith-waterman-viz（静态，端口 5178）
 - `npm run dev:slides` → slides/ngs-vs-tgs（静态，端口 5175）
 - `npm run dev:align` → apps/genome-align-viz（Vite，端口 5173/预览 5174）
 - `npm run dev:gatk` → apps/gatk-run-dashboard（Vite，端口 5176/预览 5177）
@@ -69,6 +72,7 @@
 - gatk-run-dashboard：DAG/时间轴/详情抽屉/代理与鉴权/报告导出
 - genome-align-viz：时间线、对齐画布、覆盖度轨、变异面板、教学提示
 - arith-compress-viz：算术编码的区间缩放与编码过程演示
+- smith-waterman-viz：Smith-Waterman / Needleman-Wunsch 动态规划比对过程可视化
 
 ## 开发建议
 

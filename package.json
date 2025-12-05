@@ -10,6 +10,7 @@
     "dev:picard": "npm run -w picard-workflow-spa dev",
     "dev:bwa": "npm run -w bwa-algorithm-viz dev",
     "dev:arith": "npm run -w arith-compress-viz dev",
+    "dev:sw": "npm run -w smith-waterman-viz dev",
     "dev:slides": "npm run -w slides-ngs-vs-tgs dev",
     "dev:gatk": "npm run -w gatk-run-dashboard dev",
     "dev:align": "npm run -w genome-align-viz dev",
@@ -17,7 +18,7 @@
     "format": "npx prettier . -w",
     "format:check": "npx prettier . -c",
     "lint:all": "npm run -w bioinfo-pipeline-web lint",
-    "test:all": "npm run -w bioinfo-pipeline-web test && npm run -w gatk-run-dashboard test && npm run -w genome-align-viz test",
+    "test:all": "npm run -w bioinfo-pipeline-web test && npm run -w gatk-run-dashboard test && npm run -w genome-align-viz test && npm run -w smith-waterman-viz test",
     "ci": "npm run format:check && npm run lint:all && npm run test:all"
   }
 }

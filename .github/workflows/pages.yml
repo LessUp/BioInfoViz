@@ -42,6 +42,7 @@ jobs:
           cp -R apps/picard-workflow-spa pages/apps/picard-workflow-spa
           cp -R apps/bwa-algorithm-viz pages/apps/bwa-algorithm-viz
           cp -R apps/arith-compress-viz pages/apps/arith-compress-viz
+          cp -R apps/smith-waterman-viz pages/apps/smith-waterman-viz
           # Vite builds: copy dist
           mkdir -p pages/apps/gatk-run-dashboard && cp -R apps/gatk-run-dashboard/dist/* pages/apps/gatk-run-dashboard/
           mkdir -p pages/apps/genome-align-viz && cp -R apps/genome-align-viz/dist/* pages/apps/genome-align-viz/
@@ -64,6 +65,7 @@ jobs:
               <div class="card"><h3>Picard Workflow SPA</h3><a href="./apps/picard-workflow-spa/index.html">打开</a></div>
               <div class="card"><h3>BWA Algorithm Viz</h3><a href="./apps/bwa-algorithm-viz/index.html">打开</a></div>
               <div class="card"><h3>Arithmetic Compression Viz</h3><a href="./apps/arith-compress-viz/index.html">打开</a></div>
+              <div class="card"><h3>Smith-Waterman Viz</h3><a href="./apps/smith-waterman-viz/index.html">打开</a></div>
               <div class="card"><h3>GATK Run Dashboard</h3><a href="./apps/gatk-run-dashboard/">打开</a></div>
               <div class="card"><h3>Genome Align Viz</h3><a href="./apps/genome-align-viz/">打开</a></div>
               <div class="card"><h3>Slides: NGS vs TGS</h3><a href="./slides/ngs-vs-tgs/index.html">打开</a></div>
