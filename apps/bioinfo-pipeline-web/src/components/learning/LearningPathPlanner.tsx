@@ -12,18 +12,16 @@ const STORAGE_KEY = 'bioinfo-learning-progress'
 
 export default function LearningPathPlanner() {
   const [selectedPathId, setSelectedPathId] = useState(learningPaths[0]?.id ?? 'beginner')
-  const [completedSteps, setCompletedSteps] = useState<Record<string, boolean>>({})
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return
+  const [completedSteps, setCompletedSteps] = useState<Record<string, boolean>>(() => {
+    if (typeof window === 'undefined') return {}
     const saved = window.localStorage.getItem(STORAGE_KEY)
-    if (!saved) return
+    if (!saved) return {}
     try {
-      setCompletedSteps(JSON.parse(saved) as Record<string, boolean>)
+      return JSON.parse(saved) as Record<string, boolean>
     } catch {
-      // ignore invalid local storage
+      return {}
     }
-  }, [])
+  })
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -183,7 +181,9 @@ export default function LearningPathPlanner() {
                 <div className="flex gap-4">
                   <button
                     onClick={() => toggleStep(step.id)}
-                    aria-label={isDone ? '标记为未完成' : '标记为已完成'}
+                    aria-label={
+                      isDone ? `将「${step.title}」标记为未完成` : `将「${step.title}」标记为已完成`
+                    }
                     className={cn(
                       'flex h-8 w-8 flex-none items-center justify-center rounded-full border transition-all',
                       isDone

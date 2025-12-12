@@ -1,48 +1,34 @@
-"use client";
+'use client'
 
-import Link from 'next/link';
-import { useState, useEffect } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { Dna, Menu, X, Github } from 'lucide-react';
-import { ROUTES } from '@/lib/routes';
-import { cn } from '@/lib/utils';
+import Link from 'next/link'
+import { useState } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
+import { Dna, Menu, X, Github } from 'lucide-react'
+import { ROUTES } from '@/lib/routes'
 
 const NAV_ITEMS = [
   { label: '流程演示', href: ROUTES.pipelines.wesGermline }, // Directing to one for now or could be a dropdown
   { label: '在线应用', href: ROUTES.apps.picardWorkflowSpa },
   { label: '学习资料', href: ROUTES.docs.ngsAnalysisGuide },
-];
+]
 
 export default function Header() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { scrollY } = useScroll();
-  
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const { scrollY } = useScroll()
+
   const headerBackground = useTransform(
     scrollY,
     [0, 50],
     ['rgba(255, 255, 255, 0)', 'rgba(255, 255, 255, 0.8)']
-  );
-  
-  const headerBackdropBlur = useTransform(
-    scrollY,
-    [0, 50],
-    ['blur(0px)', 'blur(12px)']
-  );
-  
+  )
+
+  const headerBackdropBlur = useTransform(scrollY, [0, 50], ['blur(0px)', 'blur(12px)'])
+
   const headerBorder = useTransform(
     scrollY,
     [0, 50],
     ['rgba(228, 228, 231, 0)', 'rgba(228, 228, 231, 0.5)']
-  );
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  )
 
   return (
     <motion.header
@@ -127,5 +113,5 @@ export default function Header() {
         </motion.div>
       )}
     </motion.header>
-  );
+  )
 }

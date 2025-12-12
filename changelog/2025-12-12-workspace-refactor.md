@@ -23,6 +23,7 @@
 
 - CI 校验修复：
   - 为通过 `format:check`，已对 `apps/arith-compress-viz/app.js` 执行 Prettier 格式化。
+  - 为通过 `format:check`，已对 `apps/bioinfo-pipeline-web/next-env.d.ts` 执行 Prettier 格式化。
   - 修复 `apps/bioinfo-pipeline-web/src/lib/pipeline-data-source.ts` 的未使用参数告警，确保 `lint:all` 输出干净。
   - `apps/bioinfo-pipeline-web`：
     - `test` 脚本改为 `vitest run`（CI 下不进入 watch）。
@@ -35,3 +36,14 @@
 
 - 分支合并：
   - 将 `origin/codex/plan-future-development-of-visualization-site-szlsm0` 合并到 `master`，冲突解决以 workspace/CI 重构版实现为准，并补齐 `PipelinePreview` 类型与更严格的 `pipeline-presets` 时序字段处理。
+
+- 测试/无障碍：
+  - `LearningPathPlanner`：为步骤完成按钮使用包含步骤标题的唯一 `aria-label`，修复测试中因按钮名称重复导致的查询歧义。
+  - `LearningPathPlanner`：调整测试用例查询方式（使用 role 查询 heading/button），避免重复文案导致 `getByText` 匹配多个元素。
+
+- Next.js 构建：
+  - `Footer`：占位/外链改用 `<a>`，仅内部路由使用 `<Link>`，修复 Next 16 Typed Routes 下 `href` 类型不匹配导致的 `next build` 失败。
+  - `MermaidDiagram`：补充 `mermaid` 本地类型声明，并让 `tsconfig.json` 纳入 `**/*.d.ts`，修复 `next build` 的模块类型缺失报错。
+
+- 其他 CI 兼容：
+  - `apps/smith-waterman-viz`：`test` 脚本改为 `vitest run`（避免 CI 进入 watch）；`dev` 从 `npx serve` 改为 `serve`。

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "npx serve -l 5178 .",
-    "test": "vitest"
+    "dev": "serve -l 5178 .",
+    "test": "vitest run"
   }
 }

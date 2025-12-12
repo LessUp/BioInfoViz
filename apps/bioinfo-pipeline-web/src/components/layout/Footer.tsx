@@ -1,5 +1,5 @@
-import Link from 'next/link';
-import { Dna, Github, Twitter } from 'lucide-react';
+import Link from 'next/link'
+import { Dna, Github, Twitter } from 'lucide-react'
 
 const FOOTER_LINKS = [
   {
@@ -25,7 +25,7 @@ const FOOTER_LINKS = [
       { label: 'Twitter', href: '#' },
     ],
   },
-];
+]
 
 export default function Footer() {
   return (
@@ -57,16 +57,18 @@ export default function Footer() {
           <div className="grid grid-cols-2 gap-8 lg:col-span-3 lg:grid-cols-3">
             {FOOTER_LINKS.map((group) => (
               <div key={group.title}>
-                <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">{group.title}</h3>
+                <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
+                  {group.title}
+                </h3>
                 <ul className="mt-4 space-y-3">
                   {group.links.map((link) => (
                     <li key={link.label}>
-                      <Link
+                      <a
                         href={link.href}
                         className="text-sm text-zinc-600 hover:text-blue-600 dark:text-zinc-400 dark:hover:text-blue-400"
                       >
                         {link.label}
-                      </Link>
+                      </a>
                     </li>
                   ))}
                 </ul>
@@ -81,5 +83,5 @@ export default function Footer() {
         </div>
       </div>
     </footer>
-  );
+  )
 }

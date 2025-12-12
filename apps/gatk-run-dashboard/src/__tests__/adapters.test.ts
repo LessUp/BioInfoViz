@@ -43,14 +43,14 @@ describe('Cromwell adapter - normalizeCromwell', () => {
     expect(run.status).toBe('Succeeded')
     expect(run.steps).toHaveLength(2)
 
-    const bwa = run.steps.find(s => s.label.toLowerCase().includes('bwa'))
-    const markdup = run.steps.find(s => /markdup|markduplicates/i.test(s.label))
+    const bwa = run.steps.find((s) => s.label.toLowerCase().includes('bwa'))
+    const markdup = run.steps.find((s) => /markdup|markduplicates/i.test(s.label))
 
     expect(bwa?.status).toBe('Succeeded')
     expect(markdup?.status).toBe('Succeeded')
 
     // 应该根据正则推断出从 BWA → MarkDuplicates 的边
-    const edge = run.edges.find(e => e.from === bwa?.id && e.to === markdup?.id)
+    const edge = run.edges.find((e) => e.from === bwa?.id && e.to === markdup?.id)
     expect(edge).toBeTruthy()
   })
 
@@ -89,8 +89,8 @@ describe('Nextflow adapter - parseNextflowTrace', () => {
     const run = parseNextflowTrace(trace)
 
     expect(run.steps).toHaveLength(2)
-    const bwa = run.steps.find(s => s.label === 'bwa')
-    const hc = run.steps.find(s => s.label === 'haplotypecaller')
+    const bwa = run.steps.find((s) => s.label === 'bwa')
+    const hc = run.steps.find((s) => s.label === 'haplotypecaller')
 
     expect(bwa?.status).toBe('Succeeded')
     expect(hc?.status).toBe('Failed')
@@ -124,8 +124,8 @@ describe('Snakemake adapter - parseSnakemakeMetadata', () => {
     expect(run.name).toBe('snakemake-demo')
     expect(run.steps).toHaveLength(2)
 
-    const step1 = run.steps.find(s => s.id === '1')
-    const step2 = run.steps.find(s => s.id === '2')
+    const step1 = run.steps.find((s) => s.id === '1')
+    const step2 = run.steps.find((s) => s.id === '2')
     expect(step1?.status).toBe('Running')
     expect(step2?.status).toBe('Succeeded')
 
