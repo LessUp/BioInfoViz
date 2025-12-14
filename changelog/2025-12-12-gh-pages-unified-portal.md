@@ -12,4 +12,7 @@
 - 变更：`ResourceCard`、`LearningPathPlanner` 统一对站内链接使用 `withBasePath()`，避免 GH Pages 子路径下链接失效。
 - 变更：修正演示数据中的占位产出物链接，避免生成无效的 `/files/*` 路径。
 
+- 变更：修复 `apps/[slug]` 静态导出时的参数解析，避免生成页面误落入“未识别的子应用”分支。
+- 变更：更新 `ROUTES.external.repo` 为实际仓库地址 `https://github.com/LessUp/BioInfoViz`。
 - 变更：更新 `.github/workflows/pages.yml`：以 Next.js 导出产物作为站点根目录，并把各 apps/slides/Vite dist 合并到 `pages/static/**` 后部署。
+- 变更：更新根 `.gitignore`，忽略本地预览/组装产物目录 `pages/`、`preview-root/`，避免误提交。

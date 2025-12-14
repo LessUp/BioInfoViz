@@ -55,8 +55,11 @@ export function generateStaticParams() {
   return APP_SLUGS.map((slug) => ({ slug }))
 }
 
-export default function AppBridgePage({ params }: { params: { slug: string } }) {
-  const config = APP_CONFIG[params.slug]
+type PageProps = { params: { slug: string } | Promise<{ slug: string }> }
+
+export default async function AppBridgePage({ params }: PageProps) {
+  const { slug } = await Promise.resolve(params)
+  const config = APP_CONFIG[slug]
 
   if (!config) {
     return (
@@ -77,7 +80,7 @@ export default function AppBridgePage({ params }: { params: { slug: string } }) 
     )
   }
 
-  const appUrl = withBasePath(`/static/apps/${params.slug}/index.html`)
+  const appUrl = withBasePath(`/static/apps/${slug}/index.html`)
 
   return (
     <main className="mx-auto max-w-6xl px-6 py-10">

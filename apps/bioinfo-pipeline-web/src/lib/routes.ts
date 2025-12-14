@@ -19,7 +19,7 @@ export const ROUTES = {
     singleCell: '/pipelines/single-cell' as const,
   },
   external: {
-    repo: 'https://github.com/your-org/bioinfo-visualizer' as const,
+    repo: 'https://github.com/LessUp/BioInfoViz' as const,
     rnaSeqGuide: 'https://rnaseq101.example.com' as const,
     singleCellHub: 'https://singlecellhub.example.com' as const,
   },
