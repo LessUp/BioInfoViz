@@ -39,7 +39,8 @@ export default function LearningPathPlanner() {
   const steps = selectedPath.steps
   const completedCount = steps.filter((step) => completedSteps[step.id]).length
   const totalSteps = steps.length
-  const progress = Math.round((completedCount / totalSteps) * 100)
+  const progress =
+    totalSteps > 0 ? Math.min(100, Math.max(0, Math.round((completedCount / totalSteps) * 100))) : 0
   const isAllCompleted = completedCount === totalSteps && totalSteps > 0
 
   const toggleStep = (stepId: string) => {

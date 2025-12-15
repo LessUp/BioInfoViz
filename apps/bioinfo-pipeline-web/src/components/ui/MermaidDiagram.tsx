@@ -31,7 +31,7 @@ export default function MermaidDiagram({ chart, className }: MermaidDiagramProps
   const [error, setError] = useState<string | null>(null)
   // Use a unique ID for each render to avoid conflicts
   const mermaidId = useId()
-  const idRef = useRef(`mermaid-${mermaidId}`)
+  const idRef = useRef(`mermaid-${mermaidId.replace(/[^a-zA-Z0-9_-]/g, '-')}`)
 
   useEffect(() => {
     // Check for dark mode to adjust theme if necessary
@@ -65,6 +65,10 @@ export default function MermaidDiagram({ chart, className }: MermaidDiagramProps
     const renderChart = async () => {
       try {
         setError(null)
+        if (!chart || !chart.trim()) {
+          setSvg('')
+          return
+        }
         // Render returns an object { svg } in v10+
         // We need to ensure the element doesn't exist before rendering if possible,
         // but mermaid.render creates a temporary element.
@@ -77,8 +81,9 @@ export default function MermaidDiagram({ chart, className }: MermaidDiagramProps
       } catch (err) {
         console.error('Mermaid rendering error:', err)
         if (isMounted) {
-          // Fallback or error message
-          setError('图表渲染失败')
+          setSvg('')
+          const message = err instanceof Error ? err.message : String(err)
+          setError(message ? `图表渲染失败：${message}` : '图表渲染失败')
         }
       }
     }
@@ -98,7 +103,7 @@ export default function MermaidDiagram({ chart, className }: MermaidDiagramProps
           className
         )}
       >
-        Failed to render chart
+        {error}
       </div>
     )
   }
